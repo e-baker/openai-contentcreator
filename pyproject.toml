@@ -5,8 +5,11 @@ build-backend = "setuptools.build_meta"
 [tool.setuptools]
 package-dir = {"" = "src"}
 
+[project.scripts]
+openaicc = "openaicc:__main__"
+
 [project]
-name = "openai-contentcreator"
+name = "openaicc"
 version = "0.1.0"
 authors = [
   { name="Eric Baker", email="e-baker@users.noreply.github.com" },

@@ -8,12 +8,15 @@
 # Built-in imports from Python Standard Library
 import os as _os
 import argparse as _argparse
-import logging as _log
 from dotenv import load_dotenv as _dotenv
 
 # Third-party imports
 from openai import OpenAI
-from .helpers import OAICCErrors as _error
+from .helpers.oaicc_errors import (
+    OAICCErrors as _new_error,
+    EmptyAPIKeyError as NoKeyError,
+    NoPromptError as PromptMissingError,
+)
 from .helpers import OurLogger as _logger
 
 #-----------------------------------------------------------------------------
@@ -73,14 +76,14 @@ class OpenAICC:
         # Validate prompts input
         if not prompts:
             # This raises and logs the error in one step.
-            raise _error("Empty or None prompts list provided", error_code=400, 
+            raise  _new_error("Empty or None prompts list provided", error_code=400, 
                             additional_data={'function': 'generate_text'})
         elif type(prompts)!= list:
             try:
                 prompts = [prompts]
             except:
                 # This raises and logs the error in one step.
-                raise _error("Prompts must be a list", error_code=400,
+                raise  _new_error("Prompts must be a list", error_code=400,
                                 additional_data={'function': 'generate_text'})
 
 
@@ -102,12 +105,11 @@ class OpenAICC:
 
             _log.info(f"Response from OpenAI API: {response}")
         
-            #return(response.choices[0].message.content)
             return(response)
 
         except Exception as e:
             # Handle API call errors
-            raise _error(f"API call failed: {e}", additional_data={'function': 'generate_text'}) 
+            raise  _new_error(f"API call failed: {e}", additional_data={'function': 'generate_text'}) 
 
 def main():
     argparser = _argparse.ArgumentParser()
@@ -117,7 +119,7 @@ def main():
     try:
         # Set the prompt from arguments if there are any.
         prompt = args.prompt if args.prompt else None
-    except _error.NoPromptError as e:
+    except  _new_error.NoPromptError as e:
         print(f"A prompt is required and can't be blank: {e.message}")
     
 
@@ -131,7 +133,7 @@ def main():
         # Handle the response
         return(generated_text)  # Handle the response as needed, here we're simply printing it
         
-    except _error as e:
+    except  _new_error.CommandLineError as e:
         # Handle errors
         print(f"An error occurred: {e.message}")
 

@@ -1,4 +1,4 @@
-from ._main import OpenAICC
+from .__main__ import OpenAICC
 
 # Define the __all__ variable
 __all__ = [
@@ -17,10 +17,10 @@ A toolkit that assists in creating content utilizing openai's models.
 __title__ = "OpenAI Content Creator"
 
 # Define the __name__ variable
-__name__ = "OpenAICC"
+__name__ = "openaicc"
 
 # Define the __path__ variable
-__path__ = "src/openapicc/"
+__path__ = "src/openaicc/"
 
 # Define the __file__ variable
 __file__ = "src/openaicc/__init__.py"

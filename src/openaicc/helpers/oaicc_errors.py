@@ -9,7 +9,7 @@
 # Built-in imports from Python Standard Library
 
 # Local imports
-from openaicc.helpers import OurLogger as _logger
+from . import ourlogger as _logger
 
 # Third-party imports
 
@@ -56,7 +56,7 @@ class OAICCErrors(Exception):
         self.error_code = error_code
         self.additional_data = additional_data
         # Log the error upon initialization
-        self._log = _logger('ListModels')
+        self._log = _logger('errors')
         self.log_error()
 
     def log_error(self):
@@ -77,5 +77,13 @@ class EmptyAPIKeyError(OAICCErrors):
         super().__init__(message, error_code=400, additional_data=additional_data)
 
 class NoPromptError(OAICCErrors):
+    def __init__(self, message, additional_data=None):
+        super().__init__(message, error_code=400, additional_data=additional_data)
+
+class NoModelError(OAICCErrors):
+    def __init__(self, message, additional_data=None):
+        super().__init__(message, error_code=400, additional_data=additional_data)
+
+class BadRequestError(OAICCErrors):
     def __init__(self, message, additional_data=None):
         super().__init__(message, error_code=400, additional_data=additional_data)
