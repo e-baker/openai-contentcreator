@@ -46,7 +46,7 @@ _log = _logger('OpenAICC')
 # OpenAICC
 #-----------------------------------------------------------------------------
 class OpenAICC:
-    def __init__(self):
+    def __init__(self, api_key :str = ""):
         """
         Description
 
@@ -64,7 +64,7 @@ class OpenAICC:
         
         """
         _dotenv()
-        self._api_key :str = _os.getenv("OPENAI_API_KEY")
+        self._api_key = api_key if api_key != "" else _os.getenv("OPENAI_API_KEY")
         self.openai = OpenAI(api_key=self._api_key)
 
     def generate_text(self, 

@@ -74,11 +74,8 @@ class OAICCErrors(Exception):
         }
         # Log the error with its details. Adjust the logging level as needed.
         self._log.error(f"Error: {error_details}")
-
-        
-class EmptyAPIKeyError(OAICCErrors):
-    def __init__(self, message, additional_data=None):
-        super().__init__(message, error_code=400, additional_data=additional_data)
+    
+        return self
 
 class NoPromptError(OAICCErrors):
     def __init__(self, message, additional_data=None):
@@ -91,6 +88,14 @@ class NoModelError(OAICCErrors):
 class BadRequestError(OAICCErrors):
     def __init__(self, message, additional_data=None):
         super().__init__(message, error_code=400, additional_data=additional_data)
+
+class EmptyAPIKeyError(OAICCErrors):
+    def __init__(self, message, additional_data=None):
+        super().__init__(message, error_code=401, additional_data=additional_data)
+
+class BadAuthenticationError(OAICCErrors):
+    def __init__(self, message, additional_data=None):
+        super().__init__(message, error_code=401, additional_data=additional_data)
 
 # Define a main function to test each error type
 def main():
