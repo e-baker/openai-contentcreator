@@ -1,3 +1,4 @@
+# __main__.py
 #-----------------------------------------------------------------------------
 #
 #
@@ -14,8 +15,8 @@ from dotenv import load_dotenv as _dotenv
 from openai import OpenAI
 from .helpers.oaicc_errors import (
     OAICCErrors as _new_error,
-    EmptyAPIKeyError as NoKeyError,
-    NoPromptError as PromptMissingError,
+    EmptyAPIKeyError,
+    NoPromptError
 )
 from .helpers import OurLogger as _logger
 

@@ -1,9 +1,14 @@
 from .__main__ import OpenAICC
+from .helpers import OAICCErrors, OurLogger, ListModels
 
 # Define the __all__ variable
 __all__ = [
-    'OpenAICC',
+    'OpenAICC', 
+    'OAICCErrors', 
+    'OurLogger', 
+    'ListModels'
     ]
+
 
 # Define the __doc__ variable
 __doc__ = """
@@ -29,7 +34,7 @@ __file__ = "src/openaicc/__init__.py"
 __version__ = "0.1.0"
 
 # Define the __author__ variable
-__author__ = "Eric Baker"
+__author__ = "Eric Develops"
 
 # Define the __license__ variable
 __license__ = "MIT"

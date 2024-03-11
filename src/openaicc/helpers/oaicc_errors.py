@@ -1,4 +1,4 @@
-# oaicc_errors.py
+# helpers/oaicc_errors.py
 #-----------------------------------------------------------------------------
 #
 #
@@ -7,9 +7,13 @@
 #-----------------------------------------------------------------------------
 
 # Built-in imports from Python Standard Library
+import argparse as _argparse
+
 
 # Local imports
-from . import ourlogger as _logger
+from .ourlogger import OurLogger
+
+
 
 # Third-party imports
 
@@ -56,7 +60,7 @@ class OAICCErrors(Exception):
         self.error_code = error_code
         self.additional_data = additional_data
         # Log the error upon initialization
-        self._log = _logger('errors')
+        self._log = OurLogger('errors')
         self.log_error()
 
     def log_error(self):
@@ -87,3 +91,31 @@ class NoModelError(OAICCErrors):
 class BadRequestError(OAICCErrors):
     def __init__(self, message, additional_data=None):
         super().__init__(message, error_code=400, additional_data=additional_data)
+
+# Define a main function to test each error type
+def main():
+    parser = _argparse.ArgumentParser(description="Test custom error classes")
+    parser.add_argument("error_type", choices=["EmptyAPIKeyError", "NoPromptError", "NoModelError", "BadRequestError"], help="Specify the error type to test")
+    parser.add_argument("--message", required=True, help="Error message")
+    args = parser.parse_args()
+
+    error_type = args.error_type
+    message = args.message
+
+    # Test the selected error type
+    try:
+        if error_type == "EmptyAPIKeyError":
+            raise EmptyAPIKeyError(message)
+        elif error_type == "NoPromptError":
+            raise NoPromptError(message)
+        elif error_type == "NoModelError":
+            raise NoModelError(message)
+        elif error_type == "BadRequestError":
+            raise BadRequestError(message)
+    except Exception as e:
+        print(f"Error type: {error_type}")
+        print(f"Error message: {message}")
+        print(f"Error details: {e}")
+
+if __name__ == "__main__":
+    main()

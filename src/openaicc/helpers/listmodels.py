@@ -1,4 +1,4 @@
-# listmodels.py
+# helpers/listmodels.py
 
 # Third-party imports
 from openai import OpenAI as _openai
@@ -6,8 +6,7 @@ from dotenv import load_dotenv as _dotenv
 import os as _os
 
 # Local imports
-from openaicc.helpers import OurLogger as _logger
-from openaicc.helpers import OAICCErrors as _error
+from openaicc.helpers import OurLogger, OAICCErrors
 
 # Constants
 
